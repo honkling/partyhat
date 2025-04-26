@@ -1,0 +1,10 @@
+name: partyhat
+version: '${version}'
+main: me.honkling.partyhat.PartyHat
+api-version: '1.21'
+prefix: partyhat
+authors: [ honkling ]
+description: A minigame loader.
+website: https://github.com/honkling/partyhat
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin}
