@@ -27,7 +27,6 @@ class ScriptLoader {
                 reports.putAll(result)
             } else if (file.extension == "kts")
                 reports[file] = load(file)
-            else println("No. ${file.extension}")
 
         return reports
     }
