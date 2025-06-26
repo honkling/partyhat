@@ -1,0 +1,8 @@
+spawn = { world = "minievent", x = 15.5, y = -2.0, z = 2.5 }
+
+[[oitc]]
+schematic = "plugins/FastAsyncWorldEdit/schematics/oitc.schem"
+points = [
+    { x = -1.5, y = 0.0, z = -1.5, yaw = -45 },
+    { x = 2.5, y = 0.0, z = 2.5, yaw = 135 }
+]
