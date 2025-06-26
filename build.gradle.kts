@@ -3,43 +3,54 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
 plugins {
     kotlin("jvm") version "2.2.0"
     id("com.gradleup.shadow") version "8.3.0"
+    `maven-publish`
 }
 
-group = "me.honkling"
+group = "me.honkling.partyhat"
 version = "0.1.0"
 
 val kotlinVersion = (plugins.getPlugin("kotlin") as KotlinBasePlugin).pluginVersion
 
-repositories {
-    mavenCentral()
-    maven("https://repo.papermc.io/repository/maven-public/")
-    maven("https://oss.sonatype.org/content/groups/public/")
-    maven("https://jitpack.io/")
-}
+allprojects {
+    apply(plugin = "kotlin")
+    repositories.mavenCentral()
 
-dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
-    compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    compileOnly(kotlin("reflect"))
-}
-
-tasks {
-    build {
-        dependsOn("shadowJar")
+    kotlin {
+        jvmToolchain(21)
     }
 
-    processResources {
-        val props = mapOf(
-            "version" to version, "kotlin" to kotlinVersion
-        )
-        inputs.properties(props)
-        filteringCharset = "UTF-8"
-        filesMatching("plugin.yml") {
-            expand(props)
+    tasks.build {
+        dependsOn("shadowJar", "publishToMavenLocal")
+    }
+}
+
+subprojects {
+    apply(plugin = "com.gradleup.shadow")
+    apply(plugin = "maven-publish")
+    apply(plugin = "java")
+
+    group = rootProject.group
+    version = rootProject.version
+
+    dependencies {
+        compileOnly(kotlin("stdlib-jdk8"))
+        compileOnly(kotlin("reflect"))
+    }
+
+    publishing {
+        publications {
+            create<MavenPublication>("maven") {
+                groupId = rootProject.group.toString()
+                artifactId = project.name
+                version = rootProject.version.toString()
+
+                from(components["java"])
+            }
         }
     }
-}
 
-kotlin {
-    jvmToolchain(21)
+    java {
+        withSourcesJar()
+        withJavadocJar()
+    }
 }

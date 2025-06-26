@@ -1,2 +1,2 @@
 rootProject.name = "partyhat"
-include("minievent")
+include("common", "paper", "minievent")

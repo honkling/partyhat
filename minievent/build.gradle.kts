@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
 
 plugins {
-    kotlin("jvm") version "2.2.0"
-    id("com.gradleup.shadow") version "8.3.0"
+    kotlin("jvm")
+    id("com.gradleup.shadow")
     id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
@@ -28,7 +28,8 @@ dependencies {
     implementation("com.github.honkling.commando:spigot:e7170651bd")
     implementation("com.github.honkling:commonlib:9742e51e7d")
     implementation("cc.ekblad:4koma:1.2.0")
-    implementation(rootProject)
+    implementation(project(":common"))
+    implementation(project(":paper"))
 }
 
 tasks {
@@ -54,8 +55,4 @@ tasks {
             expand(props)
         }
     }
-}
-
-kotlin {
-    jvmToolchain(21)
 }

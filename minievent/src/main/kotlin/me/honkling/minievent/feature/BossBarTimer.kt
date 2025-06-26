@@ -2,11 +2,11 @@ package me.honkling.minievent.feature
 
 import me.honkling.minievent.instance
 import me.honkling.minievent.lib.mm
-import me.honkling.partyhat.event.MiniGamePhaseChangeEvent
-import me.honkling.partyhat.feature.Feature
-import me.honkling.partyhat.feature.GamePhases
-import me.honkling.partyhat.feature.TimeLimit
-import me.honkling.partyhat.minigame.MiniGame
+import me.honkling.partyhat.common.feature.GamePhases
+import me.honkling.partyhat.common.feature.TimeLimit
+import me.honkling.partyhat.paper.event.MiniGamePhaseChangeEvent
+import me.honkling.partyhat.paper.feature.Feature
+import me.honkling.partyhat.paper.minigame.MiniGame
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.bossbar.BossBar
 import net.kyori.adventure.bossbar.BossBar.bossBar

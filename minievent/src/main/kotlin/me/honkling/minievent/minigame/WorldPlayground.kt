@@ -6,13 +6,12 @@ import com.sk89q.worldedit.math.BlockVector3
 import me.honkling.minievent.VoidGenerator
 import me.honkling.minievent.config.mapsToml
 import me.honkling.minievent.instance
-import me.honkling.partyhat.minigame.Playground
+import me.honkling.partyhat.paper.minigame.Playground
 import net.kyori.adventure.util.TriState
 import org.bukkit.Bukkit
 import org.bukkit.GameRule
 import org.bukkit.World
 import org.bukkit.WorldCreator
-import org.bukkit.WorldType
 import java.io.File
 import java.util.UUID
 import java.util.concurrent.CompletableFuture

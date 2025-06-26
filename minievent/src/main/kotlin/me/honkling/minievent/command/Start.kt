@@ -6,8 +6,8 @@ import me.honkling.commando.common.command.node.ParameterNode
 import me.honkling.commando.spigot.command.Command
 import me.honkling.minievent.minigame.OneInTheChamber
 import me.honkling.minievent.partyHat
-import me.honkling.partyhat.PartyHat
-import me.honkling.partyhat.minigame.MiniGame
+import me.honkling.partyhat.common.PartyHat
+import me.honkling.partyhat.common.minigame.MiniGame
 import net.kyori.adventure.text.Component
 import org.bukkit.command.CommandSender
 import kotlin.reflect.KFunction1

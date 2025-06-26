@@ -4,7 +4,7 @@ import cc.ekblad.toml.tomlMapper
 import me.honkling.commonlib.config.decoder.use
 import me.honkling.commonlib.config.getAndMapConfig
 import me.honkling.minievent.minigame.WorldPlayground
-import me.honkling.partyhat.feature.MapDistributionPlayground
+import me.honkling.partyhat.paper.feature.MapDistributionPlayground
 import org.bukkit.Location
 import java.io.File
 

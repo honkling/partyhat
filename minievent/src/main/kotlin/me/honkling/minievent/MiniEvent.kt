@@ -3,7 +3,7 @@ package me.honkling.minievent
 import me.honkling.commando.spigot.SpigotCommando
 import me.honkling.commonlib.CommonLib
 import me.honkling.minievent.config.reloadMapsToml
-import me.honkling.partyhat.PartyHat
+import me.honkling.partyhat.paper.PartyHat
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
