@@ -37,14 +37,14 @@ class OneInTheChamber : MiniGame<MapsToml.OITC>("oitc"), EventNodeContainer {
     init {
         // Registers a 'time limit' feature, which ends the minigame
         // 3 minutes after it was started.
-//        addFeature(TimeLimit(3, TimeUnit.Minutes))
+        addFeature(TimeLimit(3, TimeUnit.Minutes))
 
         // Registers a feature that distributes players randomly
         // across a list of locations defined by the playground (the map).
         addFeature(MapDistribution(playground))
 
         // Registers a feature that displays the current time limit on a boss bar.
-//        addFeature(BossBarTimer())
+        addFeature(BossBarTimer())
     }
 
     override fun initialize() {
