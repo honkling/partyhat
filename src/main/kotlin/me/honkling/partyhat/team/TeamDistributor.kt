@@ -1,6 +1,6 @@
 package me.honkling.partyhat.team
 
-import org.bukkit.entity.Player
+import net.minestom.server.entity.Player
 
 /**
  * Handles how players should be divided into teams.

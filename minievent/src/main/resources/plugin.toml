@@ -1,0 +1,5 @@
+id = "minievent"
+name = "minievent"
+description = "An event plugin."
+version = "${version}"
+mainClass = "me.honkling.minievent.MiniEvent"

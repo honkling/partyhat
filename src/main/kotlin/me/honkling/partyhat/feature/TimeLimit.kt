@@ -1,8 +1,9 @@
 package me.honkling.partyhat.feature
 
 import me.honkling.partyhat.minigame.MiniGame
-import org.bukkit.Bukkit
-import kotlin.properties.Delegates
+import net.minestom.server.MinecraftServer
+import net.minestom.server.timer.Task
+import net.minestom.server.timer.TaskSchedule
 
 enum class TimeUnit(val multiplier: Int) {
     Ticks(1),
@@ -10,17 +11,18 @@ enum class TimeUnit(val multiplier: Int) {
     Minutes(1200)
 }
 
-class TimeLimit(val value: Long, val unit: TimeUnit) : Feature {
-    private var taskID by Delegates.notNull<Int>()
+class TimeLimit(val value: Int, val unit: TimeUnit) : Feature {
+    private lateinit var task: Task
 
     override fun initialize(minigame: MiniGame<*>) {
-        taskID = Bukkit.getScheduler().scheduleSyncDelayedTask(minigame.partyHat.plugin, {
+        task = MinecraftServer.getSchedulerManager().scheduleTask({
             minigame.end()
-        }, ticks())
+            TaskSchedule.stop()
+        }, TaskSchedule.tick(ticks()))
     }
 
     override fun deinitialize(minigame: MiniGame<*>) {
-        Bukkit.getScheduler().cancelTask(taskID)
+        task.cancel()
     }
 
     fun ticks() = value * unit.multiplier

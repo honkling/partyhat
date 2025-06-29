@@ -1,23 +1,21 @@
 package me.honkling.minievent.config
 
 import cc.ekblad.toml.tomlMapper
-import me.honkling.commonlib.config.decoder.use
-import me.honkling.commonlib.config.getAndMapConfig
-import me.honkling.minievent.minigame.WorldPlayground
+import me.honkling.minievent.minigame.InstancePlayground
 import me.honkling.partyhat.feature.MapDistributionPlayground
-import org.bukkit.Location
+import net.minestom.server.coordinate.Pos
 import java.io.File
 
 lateinit var mapsToml: MapsToml; private set
 
 data class MapsToml(
-    val spawn: Location,
+    val spawn: Pos,
     val oitc: List<OITC>
 ) {
     data class OITC(
         val schematic: String,
-        val points: List<Location>
-    ) : WorldPlayground(File(schematic)), MapDistributionPlayground {
+        val points: List<Pos>
+    ) : InstancePlayground(File(schematic)), MapDistributionPlayground {
         override fun mapDistributionPoints() = points
     }
 }

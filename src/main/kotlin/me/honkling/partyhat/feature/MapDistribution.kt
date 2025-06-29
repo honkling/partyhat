@@ -1,38 +1,35 @@
 package me.honkling.partyhat.feature
 
+import me.honkling.partyhat.event.EventNodeContainer
 import me.honkling.partyhat.minigame.MiniGame
 import me.honkling.partyhat.minigame.Playground
-import org.bukkit.Location
-import org.bukkit.event.EventHandler
-import org.bukkit.event.Listener
-import org.bukkit.event.player.PlayerRespawnEvent
+import net.minestom.server.coordinate.Pos
+import net.minestom.server.event.EventNode
+import net.minestom.server.event.player.PlayerRespawnEvent
 
 interface MapDistributionPlayground : Playground {
-    fun mapDistributionPoints(): List<Location>
+    fun mapDistributionPoints(): List<Pos>
 }
 
 class MapDistribution(
     val playground: MapDistributionPlayground,
     val allowRespawns: Boolean = true
-) : Feature, Listener {
-    val cachedPoints = mutableListOf<Location>()
+) : Feature, EventNodeContainer {
+    override val eventNode = EventNode.all("map-distribution")
 
     override fun initialize(minigame: MiniGame<*>) {
         val points = playground.mapDistributionPoints()
 
+        eventNode.addListener(PlayerRespawnEvent::class.java) { event ->
+            if (allowRespawns)
+                event.respawnPosition = points.random()
+        }
+
         for ((index, player) in minigame.players.withIndex()) {
-            val location = points[index.mod(points.size)].clone()
-            location.world = playground.world()
-            player.teleport(location)
-            cachedPoints += location
+            val location = points[index.mod(points.size)]
+            player.setInstance(playground.instanceContainer(), location).join()
         }
     }
 
     override fun deinitialize(minigame: MiniGame<*>) {}
-
-    @EventHandler
-    fun onRespawn(event: PlayerRespawnEvent) {
-        if (allowRespawns)
-            event.respawnLocation = cachedPoints.random()
-    }
 }

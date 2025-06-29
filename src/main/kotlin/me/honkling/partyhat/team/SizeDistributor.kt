@@ -1,6 +1,6 @@
 package me.honkling.partyhat.team
 
-import org.bukkit.entity.Player
+import net.minestom.server.entity.Player
 
 /**
  * Distributes players into X-player teams.

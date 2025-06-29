@@ -1,6 +1,6 @@
 package me.honkling.partyhat.team
 
-import org.bukkit.entity.Player
+import net.minestom.server.entity.Player
 
 /**
  * Distributes each person into their own respective team.
@@ -8,5 +8,5 @@ import org.bukkit.entity.Player
  */
 object FFADistributor : TeamDistributor {
     override fun distribute(players: List<Player>)
-        = players.map { Team(it.name, mutableListOf(it)) }
+        = players.map { Team(it.username, mutableListOf(it)) }
 }

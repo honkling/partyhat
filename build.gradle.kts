@@ -18,26 +18,13 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+    compileOnly("net.minestom:minestom-snapshots:4fe2993057")
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compileOnly(kotlin("reflect"))
 }
 
-tasks {
-    build {
-        dependsOn("shadowJar")
-    }
-
-    processResources {
-        val props = mapOf(
-            "version" to version, "kotlin" to kotlinVersion
-        )
-        inputs.properties(props)
-        filteringCharset = "UTF-8"
-        filesMatching("plugin.yml") {
-            expand(props)
-        }
-    }
+tasks.build {
+    dependsOn("shadowJar")
 }
 
 kotlin {

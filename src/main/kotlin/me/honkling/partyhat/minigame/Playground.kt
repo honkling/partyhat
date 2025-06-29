@@ -1,10 +1,9 @@
 package me.honkling.partyhat.minigame
 
-import org.bukkit.World
-import java.util.concurrent.CompletableFuture
+import net.minestom.server.instance.InstanceContainer
 
 interface Playground {
-    fun world(): World
-    fun initialize(): CompletableFuture<Nothing?>
+    fun instanceContainer(): InstanceContainer
+    fun initialize()
     fun deinitialize()
 }

@@ -2,13 +2,14 @@ package me.honkling.partyhat.feature
 
 import me.honkling.partyhat.event.MiniGamePhaseChangeEvent
 import me.honkling.partyhat.minigame.MiniGame
-import org.bukkit.Bukkit
-import kotlin.properties.Delegates
+import net.minestom.server.MinecraftServer
+import net.minestom.server.timer.Task
+import net.minestom.server.timer.TaskSchedule
 
 class GamePhases(
     vararg val phases: Pair<String, TimeLimit>
 ) : Feature {
-    private var taskID by Delegates.notNull<Int>()
+    private lateinit var task: Task
     var phase = 0
 
     override fun initialize(minigame: MiniGame<*>) {
@@ -16,21 +17,24 @@ class GamePhases(
     }
 
     override fun deinitialize(minigame: MiniGame<*>) {
-        Bukkit.getScheduler().cancelTask(taskID)
+        task.cancel()
     }
 
     private fun nextPhase(minigame: MiniGame<*>) {
-        taskID = Bukkit.getScheduler().scheduleSyncDelayedTask(minigame.partyHat.plugin, {
+        task = MinecraftServer.getSchedulerManager().scheduleTask({
             if (phase + 1 >= phases.size)
-                return@scheduleSyncDelayedTask minigame.end()
+                minigame.end()
+            else {
+                phase++
+                nextPhase(minigame)
+                MinecraftServer.getGlobalEventHandler().call(MiniGamePhaseChangeEvent(
+                    minigame,
+                    phases[phase - 1].first,
+                    phases[phase].first
+                ))
+            }
 
-            phase++
-            nextPhase(minigame)
-            Bukkit.getPluginManager().callEvent(MiniGamePhaseChangeEvent(
-                minigame,
-                phases[phase - 1].first,
-                phases[phase].first
-            ))
-        }, phases[phase].second.ticks())
+            TaskSchedule.stop()
+        }, TaskSchedule.tick(phases[phase].second.ticks()))
     }
 }
